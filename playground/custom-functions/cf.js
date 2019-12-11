@@ -27,5 +27,6 @@ function yell(name = 'Silly Goose') {
   return `HEY ${name.toUpperCase()}`;
 }
 
+// le undefined permet le fallback vers le default params
 const myBill4 = calculateBill(100, undefined, 0.2);
 console.log(myBill4);

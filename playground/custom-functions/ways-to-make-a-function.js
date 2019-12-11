@@ -1,29 +1,29 @@
-// function doctorize(firstName) {
-//   return `Dr. ${firstName}`;
-// }
+//! classic function declaration
+function doctorize(firstName) {
+  return `Dr. ${firstName}`;
+}
 
-// Anon Function
+// Anonymous Function ==> do not work here
 // function (firstName) {
 //   return `Dr. ${firstName}`;
 // }
 
-// Function Expression
-// const doctorize = function(firstName) {
-//   return `Dr. ${firstName}`;
-// };
+//! Function Expression
+// store (anonymous) function has a value in a variable
+const doctorize2 = function(firstName) {
+  return `Dr. ${firstName}`;
+};
 
-/* eslint-disable */
+//! arrow function
 const inchToCM = inches => inches * 2.54;
 
 // function add(a, b = 3) {
 //   const total = a + b;
 //   return total;
 // }
+const add = (a, b = 3) => a + b;
 
-// const add = (a, b = 3) => a + b;
-
-// returning an object
-
+//! returning an object
 // function makeABaby(first, last) {
 //   const baby = {
 //     name: `${first} ${last}`,
@@ -31,22 +31,21 @@ const inchToCM = inches => inches * 2.54;
 //   }
 //   return baby;
 // }
-
 const makeABaby = (first, last) => ({ name: `${first} ${last}`, age: 0 });
 
-
-// IIFE
-// Immediately Invoked Function Expression
+//! IIFE
+//! Immediately Invoked Function Expression
 
 (function(age) {
   return `You are cool and age ${age}`;
 })(10);
 
-// Methods!!!
+//! Methods!!!
+//* function that lives inside an an object
 const wes = {
   name: 'Westopher Bos',
   // Method!
-  sayHi: function() {
+  sayHi() {
     console.log(`Hey ${this.name}`);
     return 'Hey Wes';
   },
@@ -57,10 +56,10 @@ const wes = {
   // Arrow function
   wisperHi: () => {
     console.log('hii wesss im a mouse');
-  }
-}
+  },
+};
 
-// Callback Functions
+//! Callback Functions
 // Click Callback
 const button = document.querySelector('.clickMe');
 

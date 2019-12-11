@@ -3,30 +3,13 @@ const people = [
   { name: 'Scott', cool: true, country: 'Merica' },
   { name: 'Snickers', cool: false, country: 'Dog Country' },
 ];
+console.table(people);
 
 /* Victor Mono */
 // New Font!
 people.forEach((person, index) => {
   console.log(person.name);
 });
-
-// console.table(people);
-
-// Console Methods
-
-// Callstack, Stack Trace
-
-// Grabbing Elements
-
-// Breakpoints
-
-// Scope
-
-// Network Requests
-
-// Break On Attribute
-
-// Some Setup Code
 
 function doALotOfStuff() {
   console.group('Doing some stuff');
@@ -37,7 +20,7 @@ function doALotOfStuff() {
 }
 
 function doctorize(name) {
-  // console.count(`running Doctorize for ${name}`);
+  console.count(`running Doctorize for ${name}`);
   return `Dr. ${name}`;
 }
 
@@ -60,8 +43,7 @@ function bootstrap() {
 
 const button = document.querySelector('.bigger');
 button.addEventListener('click', function(e) {
-  const newFontSize =
-    parseFloat(getComputedStyle(e.currentTarget).fontSize) + 1;
+  const newFontSize = parseFloat(getComputedStyle(e.currentTarget).fontSize) + 1;
   e.currentTarget.style.fontSize = `${newFontSize}px`;
 });
 
