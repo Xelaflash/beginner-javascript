@@ -49,5 +49,10 @@ const photoEl = document.querySelector('.photo');
 
 photoEl.addEventListener('mouseenter', e => {
   console.log(e.currentTarget);
+
+  //  !! THIS KEYWORD CAN BE REMEMBERED AS REFERENCING
+  // !! WHAT IS LEFT OF THE DOT
+  // ici a gauche du listener dc this reference photoEl
+
   console.log(this);
 });
