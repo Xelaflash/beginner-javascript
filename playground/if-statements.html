@@ -9,28 +9,89 @@
 </head>
 
 <body>
-  * empty array
-  * empty object
+  <h2>Truthy values</h2>
   * 1
   * -10
   * full string
   * a string of "0"
+  * empty array
+  * empty object
+
+  <h2>Falsy values</h2>
   * 0
+  <!-- Equals to false, see example  -->
   * undefined variable
   * Variable set to null
   * a variable set to `"hello" - 10` NaN
   * empty string
 
   <script>
-
     function slugify(sentence, lowercase) {
-      let slug = sentence.replace(/\s/g, '-');
+      const slug = sentence.replace(/\s/g, '-');
       if (lowercase) {
         return slug.toLowerCase();
       }
-      return slug;
+      return slug; // else is implied by using the return ! it's a style not an obligation or best pratices
     }
 
+    const name = 'xela';
+    const lastName = 'flash';
+
+    if (name === 'xela' && lastName === 'flash') {
+      console.log('cool name bruv');
+    } else {
+      console.log('ca craint du fion ton prénom');
+    }
+
+    if ('xelaflashtamere'.includes(name)) {
+      // method that return bool ca nbe use directly in if condition statement OR can be put in variable ==> better
+      console.log('super cool');
+    } else {
+      console.log('rien a signaler ici');
+    }
+
+    const isCoolName = 'xelaflashtamere'.includes(name);
+    if (isCoolName) {
+      console.log('super cool avec une variable');
+    } else {
+      console.log('rien a signaler ici');
+    }
+    // function qui retourne un bool
+    function nameIsAwesome(name) {
+      return 'xelaflashtamere'.includes(name);
+    }
+    if (nameIsAwesome('xela')) {
+      console.log('cool function in if condition');
+    }
+
+    const dog = ''; // empty string falsy here
+    if (dog) {
+      console.log('you have a dog');
+    } else {
+      console.log(`you don't have a dog`);
+    }
+
+    const zeroIsFalsy = 0;
+    if (zeroIsFalsy) {
+      console.log('0 is a real truthy');
+    } else {
+      console.log('0 is falsy');
+    }
+
+    const values = [
+      [], {},
+      1, -10, 'ma bite', '', ' ', 1, 0, undefined, NaN, null
+    ];
+
+    console.group('truthy or falsy values');
+    values.forEach(value => {
+      if (value) {
+        console.log('value is truthy');
+      } else {
+        console.log('value is falsy');
+      }
+    });
+    console.groupEnd();
   </script>
 </body>
 
