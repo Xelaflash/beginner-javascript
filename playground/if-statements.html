@@ -92,6 +92,12 @@
       }
     });
     console.groupEnd();
+
+    // ternary
+    const count = 2;
+    const word = count === 1 ? 'item' : 'items';
+    const sentence = `you have ${count} ${word} in your cart`;
+    console.log(sentence);
   </script>
 </body>
 
