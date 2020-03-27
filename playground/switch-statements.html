@@ -8,10 +8,69 @@
   <link rel="stylesheet" href="../base.css">
 </head>
 
-
 <body>
+
+  <style>
+    .turt {
+      position: relative;
+      --x: 0;
+      --y: 0;
+      --rotateX: 0;
+      --rotate: 0;
+      transform: translateX(var(--x)) translateY(var(--y)) rotateY(var(--rotateX)) rotate(var(--rotate));
+      transition: transform 0.2s;
+    }
+  </style>
+
   <img width="200" src="./turtle.png" alt="Turt" class="turt">
 
+  <script>
+    const turtle = document.querySelector('.turt');
+    let x = 0;
+    let y = 0;
+    const speed = 25;
+    let flipped = false;
+    let rotate = 0;
+
+    function handleKeyDown(event) {
+      // if it's not an arrow key we do nothing ==> return
+      if (!event.key.includes('Arrow')) return;
+      switch (event.key) {
+        case 'ArrowUp':
+          y -= 1;
+          rotate = -90;
+          break;
+        case 'ArrowDown':
+          y += 1;
+          rotate = 90;
+          break;
+        case 'ArrowLeft':
+          x -= 1;
+          rotate = 0;
+          flipped = true;
+          break;
+        case 'ArrowRight':
+          x += 1;
+          rotate = 0;
+          flipped = false;
+          break;
+
+        default:
+          console.log('That is not a valid move');
+          break;
+      }
+      turtle.setAttribute(
+        'style',
+        `
+        --rotateX: ${flipped ? '180deg' : '0'};
+        --x: ${x * speed}px;
+        --y: ${y * speed}px;
+        --rotate: ${rotate}deg;
+      `
+      );
+    }
+    window.addEventListener('keydown', handleKeyDown);
+  </script>
 </body>
 
 </html>
