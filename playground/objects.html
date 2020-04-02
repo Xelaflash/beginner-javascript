@@ -2,116 +2,67 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title></title>
-  <link rel="stylesheet" href="../base.css">
+  <link rel="stylesheet" href="../base.css" />
 </head>
 
 <body>
-  <input type="text" name="first" value="wes">
+  <input type="text" name="first" value="wes" />
 
   <script src="https://unpkg.com/lodash"></script>
   <script>
-    const age = 100;
-    const wes = {
-      age,
-      name: 'wes',
-      properyToCheck: 'NEVER',
-      'cool-dude': true,
-      'really cool': false,
-      '777': true,
-      dog: 'snicker',
+    const person = {
+      name: 'jean',
+      age: 100,
+      '7777': false,
+      'really cool': true,
+      'with-dash': true,
       clothing: {
         shirts: 10,
-        pants: 2
+        pants: 2,
       },
-      sayHello: function (greeting = 'Hey') {
+      sayHello: function (greeting = 'hey') {
         return `${greeting} ${this.name}`;
-      }
-    };
+      },
+    }; // object literal syntax
+    person.job = 'web dev';
+    person.age = 50;
+    console.log(person);
 
-    wes.job = 'Web Developer';
-    wes.age = 50;
-
-    console.log(wes.age);
-    // const properyToCheck = prompt('What do you want to check?');
-    // console.log(properyToCheck);
-    // console.log(wes[properyToCheck]);
+    // const propertyToCheck = prompt('what do you want to check?');
+    // console.log(person[propertyToCheck]);
 
     const nameInput = document.querySelector('[name="first"]');
-    const name = nameInput ? nameInput.value : '';
-    console.log(name);
+    console.log(nameInput.value);
+    // to delete a propertie in an object
+    console.log(delete person['777']);
 
-    // console.log(delete wes.job);
-    // wes.age = undefined;
-    // wes.age = null;
-
-    let name1 = 'wes';
-    let name2 = 'wes';
-
-    console.log(name1 === name2);
-    name1 = 'scott';
-    console.log(name1 === name2);
-    // update name1 to be what is name2
-    name1 = name2;
-    console.log(name1 === name2);
-    name2 = name1;
-    name2 = 'westopher';
+    // method is a function that lives inside an object
 
     const person1 = {
-      first: 'wes',
-      last: 'bos',
-      clothing: {
-        shirts: 10,
-        pants: 2
-      }
+      first: "alex",
+      last: "trash",
     };
     const person2 = {
-      first: 'wes',
-      last: 'bos'
+      first: "Larry",
+      last: "page",
     };
 
     // const person3 = person1;
-    // person3.first = 'Larry';
+    // Attention cela ne "copie" pas l'objet mais fait un REFERENCE à l'objet person1; ==> check below
+    // person3.first = "steve"; ==> ca update person1
     // console.log(person3.first);
     // console.log(person1.first);
-    // const person3 = { ...person1 };
-    const person3 = _.cloneDeep(person1);
-    person3.first = 'Larry';
 
-    person3.clothing.shirts = 100;
-
-    const meatInventory = {
-      bacon: 2,
-      sausage: 3,
-      oyster: 10,
+    // Le spread operator permet de "copié" un objet shallow copies take only one level deep ==> pour palier à ca check lodash
+    const person3 = {
+      ...person1,
     };
-
-    const veggieInventory = {
-      lettuce: 5,
-      tomatoes: 3,
-      oyster: 15,
-    };
-
-    const inventory = {
-      ...meatInventory,
-      ...veggieInventory,
-    };
-
-    function doStuff(data) {
-      data = 'something else';
-      console.log(data);
-    }
-
-    function doStuff2(data) {
-      data.tomatoes = 10000000000;
-      console.log(data);
-    }
-
-    doStuff2(inventory);
-
-
+    person3.first = "steve"; // ==> ca update PAS person1
+    console.log(person3.first);
+    console.log(person1.first);
   </script>
 </body>
 
