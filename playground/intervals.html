@@ -1,58 +1,44 @@
+/* eslint-disable quotes */
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Intervals and Timers</title>
+    <link rel="stylesheet" href="../base.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Intervals and Timers</title>
-  <link rel="stylesheet" href="../base.css">
-</head>
+  <body>
+    <script>
+      // time out with anonymous arrow function
+      setTimeout(() => {
+        console.log("i'm a timeout running 1s after page load");
+      }, 1000);
 
-<body>
-  <script>
-    function buzzer() {
-      console.log('ENNGGGGGGG');
-    }
+      // same but with function outside the setTimeout
+      function buzzer() {
+        console.log("buzzzzzzzzzzzzzz");
+      }
+      // setTimeout(buzzer, 2000);
 
-    // console.log('Starting');
-    // setTimeout(buzzer, 500);
-    // console.log('finishing');
+      // setInterval(buzzer, 1000); // Runs every seconds but will wait one 1s to start
+      // function to run interval directly
+      function setImmediateInterval(funcToRun, ms) {
+        funcToRun();
+        return setInterval(funcToRun, ms);
+      }
+      // setImmediateInterval(buzzer, 1000);
 
+      function destroy() {
+        document.body.innerHTML = `<p>Destroy</p>`;
+      }
 
-    function setImmediateInterval(funcToRun, ms) {
-      // right away call that function
-      funcToRun();
-      // run a regular interval
-      return setInterval(funcToRun, ms);
-    }
+      const bombTimer = setTimeout(destroy, 2000);
 
-    setImmediateInterval(buzzer, 2000);
-    function sayHi() {
-      console.log('Heyyy');
-    }
-    // setImmediateInterval(sayHi, 200);
-
-    function destroy() {
-      document.body.innerHTML = `<p>DESTROYED</p>`;
-    }
-
-    const bombTimer = setTimeout(destroy, 5000);
-
-    window.addEventListener('click', function () {
-      console.log('You clicked! You saved the world');
-      // ???? How do i stop
-      clearTimeout(bombTimer); // STOP THE TIMER FROM RUNNING
-    });
-
-    const poopInterval = setInterval(function () {
-      console.log('💩');
-      console.log('Hehehe');
-    }, 100);
-
-    setTimeout(function () {
-      clearInterval(poopInterval);
-    }, 3000);
-  </script>
-</body>
-
+      window.addEventListener("click", function() {
+        console.log("you clicked the page");
+        clearTimeout(bombTimer);
+      });
+    </script>
+  </body>
 </html>
