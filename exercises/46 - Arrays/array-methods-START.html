@@ -12,14 +12,26 @@
 
 <body>
   <script>
-    const toppings = ['Mushrooms ', 'Tomatoes', 'Eggs', 'Chili', 'Lettuce', 'Avocado', 'Chiles', 'Bacon', 'Pickles', 'Onions', 'Cheese'];
+    const toppings = [
+      'Mushrooms ',
+      'Tomatoes',
+      'Eggs',
+      'Chili',
+      'Lettuce',
+      'Avocado',
+      'Chiles',
+      'Bacon',
+      'Pickles',
+      'Onions',
+      'Cheese',
+    ];
 
     const buns = ['egg', 'wonder', 'brioche'];
 
     const meats = {
-      beyond: 10,
+      chicken: 10,
       beef: 5,
-      pork: 7
+      pork: 7,
     };
 
     const prices = {
@@ -31,26 +43,74 @@
 
     const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
 
-    const feedback = [
-      { comment: 'Love the burgs', rating: 4 },
-      { comment: 'Horrible Service', rating: 2 },
-      { comment: 'Smoothies are great, liked the burger too', rating: 5 },
-      { comment: 'Ambiance needs work', rating: 3 },
-      { comment: 'I DONT LIKE BURGERS', rating: 1 },
+    const feedback = [{
+        comment: 'Love the burgs',
+        rating: 4,
+      },
+      {
+        comment: 'Horrible Service',
+        rating: 2,
+      },
+      {
+        comment: 'Smoothies are great, liked the burger too',
+        rating: 5,
+      },
+      {
+        comment: 'Ambiance needs work',
+        rating: 3,
+      },
+      {
+        comment: 'I DONT LIKE BURGERS',
+        rating: 1,
+      },
     ];
-
 
     /*
       Static Methods
     */
 
-    // Array.of();
+    // Array.of() ==> a bit useless, not so much use case
+    const rien = Array.of('jordan', 'kobe');
+    console.log(rien);
+
+    // Spreading into an array
+    const durantArray = [...'durant'];
+    console.log(durantArray);
 
     // Make a function that creates a range from x to y with Array.from();
+    function createRange(start, end) {
+      const range = Array.from({
+          length: end - start + 1, // +1 to be inclusive
+        },
+        function (_item, index) {
+          return index + start;
+        }
+      );
+      return range;
+    }
 
-    // Check if the last array you created is really an array with Array.isArray();
+    const myRange = createRange(1, 10);
+    console.log(myRange);
+    // Check if the last array you created is really an array with Array.isArray() with Array.isArray();
+    console.log(Array.isArray(myRange));
 
     // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
+    console.log(Object.entries(meats));
+    console.log(Object.keys(meats));
+    console.log(Object.values(meats));
+
+    Object.keys(meats).forEach(meat => {
+      console.log(meat);
+    });
+    Object.values(meats).forEach(qty => {
+      console.log(qty);
+    });
+
+    Object.entries(meats).forEach(entry => {
+      // destructuring
+      const [key, value] = entry;
+      console.log(key, value);
+    });
 
     /*
       Instance Methods
@@ -65,7 +125,6 @@
     // take the first item off toppings with shift()
     // add it back in with unshift()
     // Do the last four,but immutable (with spreads and new variables)
-
 
     // Make a copy of the toppings array with slice()
     // Make a copy of the toppings array with a spread
@@ -93,7 +152,6 @@
     /*
       Looping Methods (next)
     */
-
   </script>
 </body>
 
