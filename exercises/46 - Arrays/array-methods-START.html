@@ -12,6 +12,7 @@
 
 <body>
   <script>
+    /* eslint-disable */
     const toppings = [
       'Mushrooms ',
       'Tomatoes',
@@ -41,7 +42,7 @@
       corn: 234,
     };
 
-    const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
+    const orderTotals = [3, 42, 1002, 523, 34, 634, 854, 1644, 2222];
 
     const feedback = [{
         comment: 'Love the burgs',
@@ -69,18 +70,18 @@
       Static Methods
     */
 
-    // Array.of() ==> a bit useless, not so much use case
+    // // Array.of() ==> a bit useless, not so much use case
     const rien = Array.of('jordan', 'kobe');
     console.log(rien);
 
-    // Spreading into an array
+    // // Spreading into an array
     const durantArray = [...'durant'];
     console.log(durantArray);
 
     // Make a function that creates a range from x to y with Array.from();
     function createRange(start, end) {
       const range = Array.from({
-          length: end - start + 1, // +1 to be inclusive
+          length: end - start + 1, // +1 to be inclusie
         },
         function (_item, index) {
           return index + start;
@@ -91,10 +92,11 @@
 
     const myRange = createRange(1, 10);
     console.log(myRange);
+
     // Check if the last array you created is really an array with Array.isArray() with Array.isArray();
     console.log(Array.isArray(myRange));
 
-    // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
+    // // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
     console.log(Object.entries(meats));
     console.log(Object.keys(meats));
     console.log(Object.values(meats));
@@ -117,37 +119,134 @@
     */
 
     // Display all bun types with " or " - use join()
+    console.log(buns.join(' or '));
 
     // We have a string "hot dogs,hamburgers,sausages,corn" - use split() to turn it into a string
+    const foodString = 'hot dogs,hamburgers,sausages,corn';
+    console.log(foodString.split(','));
 
-    // take the last item off toppings with pop()
-    // add it back with push()
-    // take the first item off toppings with shift()
-    // add it back in with unshift()
+    // // take the last item off toppings with pop()
+    toppings.pop();
+    // // add it back with push()
+    toppings.push('Cheese');
+    // // take the first item off toppings with shift()
+    toppings.shift();
+    // // add it back in with unshift()
+    toppings.unshift('Mushrooms');
+
     // Do the last four,but immutable (with spreads and new variables)
+    let newToppings = toppings.slice(0, toppings.length - 1);
+    newToppings = [...newToppings, toppings[toppings.length - 1]];
+
+    let newToppings2 = toppings.slice(1, toppings.length);
+    // newToppings2 = [toppings[0], ...newToppings2];
+    newToppings2 = [toppings[toppings.length - toppings.length], ...newToppings2];
 
     // Make a copy of the toppings array with slice()
-    // Make a copy of the toppings array with a spread
-    // take out items 3 to 5 of your new toppings array with splice()
-    // find the index of Avocado with indexOf() / lastIndexOf()
-    // Check if hot sauce is in the toppings with includes()
-    // add it if it's not
-    // flip those toppings around with reverse()
+    const toppingsCopy = toppings.slice(0);
+    // toppings[0] = 'original changed';
+    console.log(toppings);
+    console.log('im a true copy i did not changed', toppingsCopy);
 
-    /*
-      Callback Methods
-    */
+    // Make a copy of the toppings array with a spread
+    const toppingsCopy2 = [...toppings];
+    toppings[0] = 'original changed';
+    console.log(toppings);
+    console.log('im a true copy i did not changed', toppingsCopy2);
+
+    // take out items 3 to 5 of your new toppings array with splice()
+    toppingsCopy2.splice(3, 3);
+    console.log(toppings);
+    console.log(toppingsCopy2);
+
+    // find the index of Avocado with indexOf() / lastIndexOf() ==> gives you the last reference
+    const avocado = toppings.indexOf('Avocado');
+
+    // // Check if hot sauce is in the toppings with includes()
+    const isInToppings = toppings.includes('hot sauce');
+    // // add it if it's not
+    if (!isInToppings) {
+      toppings.push('hot sauce');
+    }
+    // // flip those toppings around with reverse()
+    toppings.reverse(); // Mutable method
+    const toppingsReverse = [...toppings].reverse(); // immutable way (does not change the original array)
+    console.log(toppingsReverse);
+
+    /* Callback Methods */
 
     // find the first rating that talks about a burger with find()
+    const burgRating = feedback.find(rating => rating.comment.includes('burg'));
+    console.log(burgRating);
+
+    //  Create a function that can be reused for finding a word in this array
+    function findByWord(word) {
+      return function (foundFeedback) {
+        return foundFeedback.comment.includes(word);
+      };
+    }
+    const burgRating2 = feedback.find(findByWord('burg'));
+    console.log(burgRating2);
+    const smoothieRating = feedback.find(findByWord('Smoothie'));
+    console.log(smoothieRating);
+
     // find all ratings that are above 2 with filter()
+    const goodReview = feedback.filter(singleFeedback => singleFeedback.rating > 2);
+    console.table(goodReview);
+
+    // same but with an utility function for reusability
+    function filterByMinRating(rating) {
+      return function (filteredRating) {
+        return filteredRating.rating > rating;
+      };
+    }
+    const goodReview2 = feedback.filter(filterByMinRating(4));
+    console.table(goodReview2);
+
     // find all ratings that talk about a burger with filter()
+    const burgRatings = feedback.filter(findByWord('burg'));
+    console.table(burgRatings);
+
     // Remove the one star rating however you like!
+    const removeRating = feedback.filter(filterByMinRating(1));
+    console.table(removeRating);
 
     // check if there is at least 5 of one type of meat with some()
+    // meats is an object need to transform to array
+    const QtyBiggerThan5 = Object.values(meats).some(meatValue => meatValue >= 5)
+    console.log(QtyBiggerThan5);
+
     // make sure we have at least 3 of every meat with every()
+    const QtyAtLeast3 = Object.values(meats).every(meatValue => meatValue >= 3)
+    console.log(QtyAtLeast3);
+
     // sort the toppings alphabetically with sort()
+    toppings.sort();
+    console.log(toppings);
+
     // sort the order totals from most expensive to least with .sort()
+    // sort is chelou for numbers!!! need a callback function
+    const numberSorted = orderTotals.sort(function (firstItem, secondItem) {
+      return firstItem - secondItem;
+    });
+    console.log(orderTotals);
+    // we can also create a nice util function if this sort is repeated
+    function sortNumber(a, b) {
+      return a - b;
+    }
+    const numbersSortedWithUtilFunction = orderTotals.sort(sortNumber);
+    console.log(numbersSortedWithUtilFunction);
+
     // Sort the prices with sort()
+    const productSortedByPrice = Object.entries(prices).sort(function (a, b) {
+      const aPrice = a[1];
+      const bPrice = b[1];
+      return aPrice - bPrice;
+    });
+    console.table(productSortedByPrice);
+    // if we want it back to an object
+    console.table(Object.fromEntries(productSortedByPrice));
+
 
     /*
       Looping Methods (next)
