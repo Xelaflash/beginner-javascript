@@ -12,10 +12,21 @@
 
 <body>
   <script>
-    const toppings = ['Mushrooms ', 'Tomatoes', 'Eggs', 'Chili', 'Lettuce', 'Avocado', 'Chiles', 'Bacon', 'Pickles', 'Onions', 'Cheese'];
+    const toppings = [
+      'Mushrooms ',
+      'Tomatoes',
+      'Eggs',
+      'Chili',
+      'Lettuce',
+      'Avocado',
+      'Chiles',
+      'Bacon',
+      'Pickles',
+      'Onions',
+      'Cheese',
+    ];
 
-    const students = [
-      {
+    const students = [{
         id: '11ce',
         first_name: 'Dall',
         last_name: 'Puckring',
@@ -62,37 +73,35 @@
       },
     ];
 
-    const people = [
-      {
+    const people = [{
         birthday: 'April 22, 1993',
         names: {
           first: 'Keith',
-          last: 'Buckley'
-        }
+          last: 'Buckley',
+        },
       },
       {
         birthday: 'January 3, 1975',
         names: {
           first: 'Larry',
-          last: 'Heep'
-        }
+          last: 'Heep',
+        },
       },
       {
         birthday: 'February 12, 1944',
         names: {
           first: 'Linda',
-          last: 'Bermeer'
-        }
-      }
+          last: 'Bermeer',
+        },
+      },
     ];
-
 
     const buns = ['egg', 'wonder', 'brioche'];
 
     const meats = {
       beyond: 10,
       beef: 5,
-      pork: 7
+      pork: 7,
     };
 
     const prices = {
@@ -104,31 +113,81 @@
 
     const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
 
-    const feedback = [
-      { comment: 'Love the burgs', rating: 4 },
-      { comment: 'Horrible Service', rating: 2 },
-      { comment: 'Smoothies are great, liked the burger too', rating: 5 },
-      { comment: 'Ambiance needs work', rating: 3 },
-      { comment: 'I DONT LIKE BURGERS', rating: 1 },
+    const feedback = [{
+        comment: 'Love the burgs',
+        rating: 4,
+      },
+      {
+        comment: 'Horrible Service',
+        rating: 2,
+      },
+      {
+        comment: 'Smoothies are great, liked the burger too',
+        rating: 5,
+      },
+      {
+        comment: 'Ambiance needs work',
+        rating: 3,
+      },
+      {
+        comment: 'I DONT LIKE BURGERS',
+        rating: 1,
+      },
     ];
 
     const faces = ['😃', '🤠', '🤡', '🤑', '😵', '🌞', '🐶', '😺'];
 
-    const inventory = [
-      { type: 'shirt', price: 4000 },
-      { type: 'pants', price: 4532 },
-      { type: 'socks', price: 234 },
-      { type: 'shirt', price: 2343 },
-      { type: 'pants', price: 2343 },
-      { type: 'socks', price: 542 },
-      { type: 'pants', price: 123 },
+    const inventory = [{
+        type: 'shirt',
+        price: 4000,
+      },
+      {
+        type: 'pants',
+        price: 4532,
+      },
+      {
+        type: 'socks',
+        price: 234,
+      },
+      {
+        type: 'shirt',
+        price: 2343,
+      },
+      {
+        type: 'pants',
+        price: 2343,
+      },
+      {
+        type: 'socks',
+        price: 542,
+      },
+      {
+        type: 'pants',
+        price: 123,
+      },
     ];
-
 
     /*
       Looping Methods
     */
+    // toppings.forEach(topping => {
+    //   console.log(topping);
+    // });
 
+    function logTopping(topping, index, originalArray) {
+      const nextTopping = originalArray[index + 1];
+      const prevTopping = originalArray[index - 1];
+      // log the topping
+      console.log(topping);
+      // log the previous topping if there is one
+      prevTopping ? console.log('previous:', prevTopping) : '';
+      // log the next if there is one
+      nextTopping ? console.log('next:', nextTopping) : '';
+      // if last item say goodbye
+      index === originalArray.length - 1 ? console.log('Bye bye finito') : null;
+      console.log('-----------------');
+    }
+    toppings.forEach(logTopping);
   </script>
 </body>
 
