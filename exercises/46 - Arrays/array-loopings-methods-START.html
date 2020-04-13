@@ -248,6 +248,39 @@
       };
     });
     console.table(cleanPeople);
+
+    // find people older than 40 years old
+    const oldPeople = cleanPeople.filter(elderly => elderly.age > 40);
+    console.log(oldPeople);
+    // filter will always return an array
+    // find will return all items that match your condition
+
+    // find the student with id of 565a
+    const targetStudent = students.find(student => student.id === '565a');
+    console.log(targetStudent);
+    // filter will return an array on the item(s) matching the condition;
+    // if nothing matches condition will return undefined ==> Need to check for that
+
+    // refacto for reusing the condition => higher order function!!!!
+    function findById(id) {
+      return function isStudent(student) {
+        return student.id === id;
+      };
+    }
+    const targetStudentRefacto = students.find(findById('565a'));
+    console.log(targetStudentRefacto);
+
+    // modify function to be more flexible and accept all students object properties
+    function findByProperty(prop, propValueWeAreLookingFor) {
+      return function studentWeAreLookingFor(studentWhichMatch) {
+        return studentWhichMatch[prop] === propValueWeAreLookingFor;
+        // we use bracket notation here because the prop we are looking for is been passed in has function argument
+      };
+    }
+    const targetStudentRefactoWithProp1 = students.find(findByProperty('last_name', 'Puckring'));
+    const targetStudentRefactoWithProp2 = students.find(findByProperty('id', 'f396'));
+    console.log(targetStudentRefactoWithProp1);
+    console.log(targetStudentRefactoWithProp2);
   </script>
 </body>
 
