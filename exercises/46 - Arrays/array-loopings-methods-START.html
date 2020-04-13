@@ -2,12 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>
-
-  </title>
-  <link rel="stylesheet" href="../../base.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title> </title>
+  <link rel="stylesheet" href="../../base.css" />
 </head>
 
 <body>
@@ -188,6 +186,68 @@
       console.log('-----------------');
     }
     toppings.forEach(logTopping);
+
+    // Map, Filter, Reduce
+    console.clear();
+
+    function addArms(face) {
+      return `👋${face} 👋`;
+    }
+    const toys = faces.map(addArms);
+    console.log(toys);
+
+    // const fullNames 'Micheal'al'deAndre're'lance'ce"].map(
+    //   name => `${name} Jordan`
+    // );
+
+    // can be done with a function
+    function addJordan(name) {
+      return `${name} Jordan`;
+    }
+
+    function capitalize(word) {
+      return `${word[0].toUpperCase()}${word.slice(1)}`;
+    }
+
+    const fullNames = ['micheal', 'deandre', 'lance'].map(capitalize).map(addJordan);
+    console.log(fullNames);
+
+    //  Add tax to orderTotals
+    const orderTotalsWithTax = orderTotals.map(total => total * 1.2);
+    console.log(orderTotalsWithTax);
+
+    // fun stuff
+    //     function attachBody(face, body) {
+    //       return `
+    //           ${face}
+    // 　　　　　${body.repeat(3)}
+    // 　　　　 ${Array(3).fill(body).join(' ')}
+    // 　　　👇🏽　 ${body.repeat(2)}　👇🏽
+    //         ${Array(2).fill(body).join('   ')}
+    //         ${Array(2).fill(body).join('   ')}
+    // 　　　　　👢　　👢
+    //       `
+    //     }
+
+    // faces.map(face => attachBody(face, '🍟')).forEach(body => console.log(body))
+
+    const cleanPeople = people.map(function (person) {
+      // console.log(person);
+      // get their bday
+      const bday = new Date(person.birthday).getTime(); // transform in a Timestamp
+      const now = Date.now();
+      // console.log(bday, now);
+      // figure out how old they are
+      const age = Math.floor((now - bday) /
+      31536000000); // nbr of millsecs in a year => check library for method to deal with dates
+      // console.log(age);
+      // return their full name and bday in an object
+      return {
+        age,
+        name: `${person.names.first} ${person.names.last}`,
+      };
+    });
+    console.table(cleanPeople);
   </script>
 </body>
 
