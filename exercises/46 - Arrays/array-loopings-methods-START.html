@@ -281,6 +281,41 @@
     const targetStudentRefactoWithProp2 = students.find(findByProperty('id', 'f396'));
     console.log(targetStudentRefactoWithProp1);
     console.log(targetStudentRefactoWithProp2);
+
+    // Reduce
+    console.clear();
+
+    function tallyNumbers(tally, currentTotal) {
+      console.log(`The current tally is ${tally}`);
+      console.log(`The current total is ${currentTotal}`);
+      console.log('---------');
+      // return the current tally PLUS the amount of this order
+      return tally + currentTotal;
+    }
+
+    const allOrders = orderTotals.reduce(tallyNumbers, 0);
+    console.log(allOrders);
+
+    // count all instancies of a specific type
+
+    function inventoryReducer(totals, item) {
+      console.log(`Looping over ${item.type}`);
+      // increment the type by one
+      // need to check if totals of a type exists (if not will be Nan) or we set it to one
+      totals[item.type] = totals[item.type] + 1 || 1;
+      // Another way of doing this
+      // totals[item.type] ? totals[item.type] + 1 : totals[item.type] = 1;
+
+      // return the totals, so the next loop can use it
+      return totals;
+    }
+
+    const inventoryCounts = inventory.reduce(inventoryReducer, {}); // we start with an empty object
+    console.log(inventoryCounts);
+
+    // Add the invetory price
+    const totalPrices = inventory.reduce((acc, item) => acc + item.price, 0);
+    console.log(totalPrices);
   </script>
 </body>
 
