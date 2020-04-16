@@ -5,9 +5,9 @@ const canvas = document.querySelector('.video');
 const ctx = canvas.getContext('2d');
 
 const faceCanvas = document.querySelector('.face');
-const faceCtx = canvas.getContext('2d');
+const faceCtx = faceCanvas.getContext('2d');
 
-const faceDetector = new window.FaceDetector();
+const faceDetector = new window.FaceDetector({ fastMode: true });
 // console.log(video, canvas, faceCanvas, faceDetector);
 const optionsInputs = document.querySelectorAll('.controls input[type="range"]');
 
@@ -26,14 +26,13 @@ optionsInputs.forEach(input => input.addEventListener('input', handleOption));
 async function populateVideo() {
   // grab the feed of user webcam
   const stream = await navigator.mediaDevices.getUserMedia({
-    video: { width: 1280, height: 720 },
+    video: { width: 1080, height: 624 },
   });
   // setting the vid object on the html to the user webcam stream
   video.srcObject = stream;
   await video.play();
 
   // size the canvases to be same size as video stream
-  console.log(video.videoWidth, video.videoHeight);
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
@@ -44,9 +43,10 @@ async function populateVideo() {
 async function detect() {
   const faces = await faceDetector.detect(video);
   // ask the browser when the next animation frame is and tell it to run detect for us
-  // console.log(faces);
+  // console.log(faces.length);
   faces.forEach(drawFace);
-  // requestAnimationFrame(detect);
+  faces.forEach(censor);
+  requestAnimationFrame(detect);
 }
 
 function drawFace(face) {
@@ -74,8 +74,8 @@ function censor({ boundingBox: face }) {
     options.SIZE,
     options.SIZE
   );
-  // draw the small face back on, but scale up
 
+  // draw the small face back on, but scale up
   const width = face.width * options.SCALE;
   const height = face.height * options.SCALE;
   faceCtx.drawImage(
