@@ -8,10 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "browserslist": [
-    "last 1 Chrome version"
-  ],
+  "browserslist": ["last 1 Chrome Version"],
   "dependencies": {
-    "parcel": "^2.0.0-alpha.2.1"
+    "parcel": "latest"
   }
 }
