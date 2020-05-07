@@ -79,9 +79,27 @@
           el.classList.add('fadeOut');
         });
     }
-
-    go.addEventListener('click', animate);
+    // go.addEventListener('click', animate);
     // END PROMISE CHAIN (we will be better with Async Await)
+
+    // same with ASYNC AWAIT
+    async function animate2(event) {
+      const el = event.currentTarget;
+      el.textContent = 'Go baby Go!!!';
+      await wait(2000);
+      el.classList.add('circle');
+      await wait(500);
+      el.classList.add('red');
+      await wait(250);
+      el.classList.remove('circle');
+      await wait(300);
+      el.classList.remove('red');
+      el.classList.add('purple');
+      await wait(500);
+      el.classList.add('fadeOut');
+    }
+    go.addEventListener('click', animate2);
+    // END ASYNC AWAIT
 
     // change text to go when clicked
     // Callback Hell(christmas tree code)
