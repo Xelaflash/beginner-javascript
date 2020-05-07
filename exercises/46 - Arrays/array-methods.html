@@ -31,13 +31,7 @@
 
     const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
 
-    const feedback = [
-      { comment: 'Love the burgs', rating: 4 },
-      { comment: 'Horrible Service', rating: 2 },
-      { comment: 'Smoothies are great, liked the burger too', rating: 5 },
-      { comment: 'Ambiance needs work', rating: 3 },
-      { comment: 'I DONT LIKE BURGERS', rating: 1 },
-    ];
+
 
     /*
       Static Methods
@@ -148,6 +142,14 @@
     //   }
     // }
     // const findSmootieRating = (singleFeedback) => singleFeedback.comment.includes('Smoothie');
+    const feedback = [
+      { comment: 'Love the burgs', rating: 4 },
+      { comment: 'Horrible Service', rating: 2 },
+      { comment: 'Smoothies are great, liked the burger too', rating: 5 },
+      { comment: 'Ambiance needs work', rating: 3 },
+      { comment: 'I DONT LIKE BURGERS', rating: 1 },
+    ];
+
 
     function findByWord(word) {
       return function (singleFeedback) {
@@ -159,6 +161,7 @@
     const smoothieRating = feedback.find(findByWord('Smoothie'));
 
     console.log(burgRating);
+
     // find all ratings that are above 2 with filter()
     function filterByMinRating(minRating) {
       return function (singleFeedback) {

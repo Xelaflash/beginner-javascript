@@ -1,72 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Promises</title>
+    <link rel="stylesheet" href="../base.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Promises</title>
-  <link rel="stylesheet" href="../base.css">
-</head>
+  <body>
+    <script>
+      function makePizza(toppings = []) {
+        const pizzaPromise = new Promise(function(resolve, reject) {
+          // reject if people are trying with pineapple
+          if (toppings.includes("pineapple")) {
+            reject("No way, no 🍍 in my house");
+          }
+          const amountOfTimeToBake = 500 + toppings.length * 200;
+          // wait 1sec for pizza to cook
+          setTimeout(() => {
+            // when u are ready resolve the promise
+            resolve(
+              `Here is your pizza 🍕 with the toppings ${toppings.join(" ")}`
+            );
+          }, amountOfTimeToBake);
+          // if error reject the promise
+        });
+        return pizzaPromise;
+      }
 
-<body>
-  <script>
-    function makePizza(toppings = []) {
-      const pizzaPromise = new Promise(function (resolve, reject) {
-        const amountOfTimeToBake = 500 + toppings.length * 200;
-        // wait 1sec for pizza to cook
-        setTimeout(() => {
-          // when u are ready resolve the promise
-          resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(' ')}`);
-        }, amountOfTimeToBake);
-        // if error reject the promise
+      // const pepperoniPromise = makePizza(['pepperoni']);
+      // const cheesePromise = makePizza(['mozzarella', 'parmesan', 'gorgonzola']);
+
+      // will give you the promise but not the pizza instance
+      // console.log(pepperoniPromise);
+      // console.log(cheesePromise);
+
+      // in order to access the pizza you need :
+      // pepperoniPromise.ten(function (pizza) {
+      //   console.log('Yeah got it');
+      //   console.log(pizza);
+      // });
+
+      // function makePizza return a promise so we can chain a then directly after.
+      // this is run sequentially
+      // makePizza(['pepperoni'])
+      //   .then(function (pizza) {
+      //     console.log(pizza);
+      //     return makePizza(['ham', 'cheese']);
+      //   })
+      //   .then(function (pizza) {
+      //     console.log(pizza);
+      //   });
+
+      // make pizza concurrently
+      // const pizzaPromise1 = makePizza(["ham", "cheese"]);
+      // const pizzaPromise2 = makePizza([
+      //   "topping1",
+      //   "topping2",
+      //   "topping3",
+      //   "topping4",
+      //   "topping5",
+      //   "topping6",
+      //   "topping7",
+      //   "topping8",
+      // ]);
+      // const pizzaPromise3 = makePizza(["mozzarella", "parmesan", "gorgonzola"]);
+
+      // const dinnerPromise = Promise.all([
+      //   pizzaPromise1,
+      //   pizzaPromise2,
+      //   pizzaPromise3,
+      // ]);
+      // dinnerPromise.then((pizzas) => {
+      //   const [classic, complete, cheesy] = pizzas;
+      //   console.log(classic, complete, cheesy);
+      // });
+
+      function handleError(err) {
+        console.log("oh nooooo");
+        console.log(err);
+      }
+
+      makePizza(["cheese", "pineapple"])
+        .then((pizza) => {
+          console.log(pizza);
+        })
+        .catch(handleError);
+
+      const p1 = makePizza(["cheese"]);
+      const p2 = makePizza(["pineapple"]);
+
+      const dinnerPromise2 = Promise.allSettled([p1, p2]);
+
+      dinnerPromise2.then((results) => {
+        console.log(results);
       });
-      return pizzaPromise;
-    }
-
-    // const pepperoniPromise = makePizza(['pepperoni']);
-    // const cheesePromise = makePizza(['mozzarella', 'parmesan', 'gorgonzola']);
-
-    // will give you the promise but not the pizza instance
-    // console.log(pepperoniPromise);
-    // console.log(cheesePromise);
-
-    // in order to access the pizza you need :
-    // pepperoniPromise.ten(function (pizza) {
-    //   console.log('Yeah got it');
-    //   console.log(pizza);
-    // });
-
-    // function makePizza return a promise so we can chain a then directly after.
-    // this is run sequentially
-    // makePizza(['pepperoni'])
-    //   .then(function (pizza) {
-    //     console.log(pizza);
-    //     return makePizza(['ham', 'cheese']);
-    //   })
-    //   .then(function (pizza) {
-    //     console.log(pizza);
-    //   });
-
-    // make pizza concurrently
-    const pizzaPromise1 = makePizza(['ham', 'cheese']);
-    const pizzaPromise2 = makePizza([
-      'topping1',
-      'topping2',
-      'topping3',
-      'topping4',
-      'topping5',
-      'topping6',
-      'topping7',
-      'topping8',
-    ]);
-    const pizzaPromise3 = makePizza(['mozzarella', 'parmesan', 'gorgonzola']);
-
-    const dinnerPromise = Promise.all([pizzaPromise1, pizzaPromise2, pizzaPromise3]);
-    dinnerPromise.then(pizzas => {
-      const [classic, complete, cheesy] = pizzas;
-      console.log(classic, complete, cheesy);
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
