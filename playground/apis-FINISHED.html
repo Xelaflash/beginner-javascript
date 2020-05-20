@@ -12,6 +12,11 @@
   <p class="user"></p>
 
   <script>
+    // Asynchronous
+    // Javascript
+    // And
+    // Xml
+    // ===> AJAX
     const baseEndpoint = 'https://api.github.com';
     const usersEndpoint = `${baseEndpoint}/users`;
     const userEl = document.querySelector('.user');
@@ -30,11 +35,10 @@
     function handleError(err) {
       console.log('OH NO!');
       console.log(err);
-      userEl.textContent = `Something went wrong: ${err}`
+      userEl.textContent = `Something went wrong: ${err}`;
     }
 
-    displayUser('stolinski').catch(handleError);
-
+    displayUser('xelaflash').catch(handleError);
   </script>
 </body>
 
