@@ -1,3 +1,11 @@
+const fromSelect = document.querySelector('[name="from_currency"]');
+const fromInput = document.querySelector('[name="from_amount"]');
+const toSelect = document.querySelector('[name="to_currency"]');
+const toEl = document.querySelector('.to_amount');
+const form = document.querySelector('.app form');
+const endpoint = 'https://api.exchangeratesapi.io/latest';
+const ratesByBase = {};
+
 const currencies = {
   USD: 'United States Dollar',
   AUD: 'Australian Dollar',
@@ -32,3 +40,53 @@ const currencies = {
   ZAR: 'South African Rand',
   EUR: 'Euro',
 };
+
+function generateOptions(options) {
+  return Object.entries(options)
+    .map(
+      ([currencyCode, currencyName]) =>
+        `
+        <option value="${currencyCode}">${currencyCode} - ${currencyName}</option>
+      `
+    )
+    .join('');
+}
+
+async function fetchRates(base = 'USD') {
+  const response = await fetch(`${endpoint}?base=${base}`);
+  const rates = await response.json();
+  return rates;
+}
+
+async function convert(amount, fromCcy, toCcy) {
+  // first check if we have the rates to convert from that ccy
+  if (!ratesByBase[fromCcy]) {
+    console.log(`we don't have the rate for this ${fromCcy}/${toCcy} ccy pair`);
+    const rates = await fetchRates(fromCcy);
+    // store it
+    ratesByBase[fromCcy] = rates;
+  }
+  // convert the amount
+  const rate = ratesByBase[fromCcy].rates[toCcy];
+  const convertedAmount = rate * amount;
+  return convertedAmount;
+}
+
+function formatCcy(amount, currency) {
+  return Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).format(amount);
+}
+
+async function handleInput() {
+  const rawAmount = await convert(fromInput.value, fromSelect.value, toSelect.value);
+  toEl.textContent = formatCcy(rawAmount, toSelect.value);
+}
+
+const optionsHtml = generateOptions(currencies);
+fromSelect.innerHTML = optionsHtml;
+toSelect.innerHTML = optionsHtml;
+
+// you can listen for inputs on form, with bubbling listener will cover ALL inputs of that form
+form.addEventListener('input', handleInput);
