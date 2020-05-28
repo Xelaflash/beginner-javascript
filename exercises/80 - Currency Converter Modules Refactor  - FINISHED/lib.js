@@ -10,9 +10,7 @@ export async function fetchRates(base = 'USD') {
 export async function convert(amount, from, to) {
   // first check if we even have the rates to convert from that currency
   if (!ratesByBase[from]) {
-    console.log(
-      `Oh no, we dont have ${from} to convert to ${to}. So gets go get it!`
-    );
+    console.log(`Oh no, we dont have ${from} to convert to ${to}. So gets go get it!`);
     const rates = await fetchRates(from);
     console.log(rates);
     // store them for next time
