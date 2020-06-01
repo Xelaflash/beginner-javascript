@@ -10,44 +10,49 @@ let analyzer;
 let bufferLength;
 
 function handleError(err) {
-  console.log('You must give access to your mic in order to proceed');
+  console.log('please give permission to the mic');
 }
 
 async function getAudio() {
-  const stream = await navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .catch(handleError);
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true }).catch(handleError);
+  // console.log(stream);
   const audioCtx = new AudioContext();
   analyzer = audioCtx.createAnalyser();
   const source = audioCtx.createMediaStreamSource(stream);
   source.connect(analyzer);
-  // How much data should we collect
-  analyzer.fftSize = 2 ** 8;
-  // pull the data off the audio
-  // how many pieces of data are there?!?
+  // audio data we wan to collect
+  analyzer.fftSize = 2 ** 9;
+  // how many pieces of data are there
   bufferLength = analyzer.frequencyBinCount;
+  // pull data from audio
   const timeData = new Uint8Array(bufferLength);
+  // console.log(timeData);
   const frequencyData = new Uint8Array(bufferLength);
+  // console.log(frequencyData);
   drawTimeData(timeData);
   drawFrequency(frequencyData);
 }
 
+// draw frequency bars
+
+// draw time waves
 function drawTimeData(timeData) {
-  // inject the time data into our timeData array
+  // inject time date into array
   analyzer.getByteTimeDomainData(timeData);
-  // now that we have the data, lets turn it into something visual
-  // 1. Clear the canvas TODO
+  // draw visual
+  // 1. clear canvas
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  // 2. setup some canvas drawing
+  // 2. set up canvas drawing
   ctx.lineWidth = 10;
   ctx.strokeStyle = '#ffc600';
   ctx.beginPath();
   const sliceWidth = WIDTH / bufferLength;
+  // console.log(sliceWidth);
   let x = 0;
   timeData.forEach((data, i) => {
     const v = data / 128;
     const y = (v * HEIGHT) / 2;
-    // draw our lines
+    // draw lines
     if (i === 0) {
       ctx.moveTo(x, y);
     } else {
@@ -55,31 +60,30 @@ function drawTimeData(timeData) {
     }
     x += sliceWidth;
   });
-
   ctx.stroke();
-
-  // call itself as soon as possible
+  // call itself asap
   requestAnimationFrame(() => drawTimeData(timeData));
 }
 
 function drawFrequency(frequencyData) {
-  // get the frequency data into our frequencyData array
+  // get frequency data into array
   analyzer.getByteFrequencyData(frequencyData);
   // figure out the bar width
   const barWidth = (WIDTH / bufferLength) * 2.5;
+  console.log(barWidth);
   let x = 0;
   frequencyData.forEach(amount => {
-    // 0 to 255
+    // range from 0 to 255
     const percent = amount / 255;
     const [h, s, l] = [360 / (percent * 360) - 0.5, 0.8, 0.5];
     const barHeight = HEIGHT * percent * 0.5;
-    // TODO: Convert the colour to HSL TODO
+    // convert color to hsl
     const [r, g, b] = hslToRgb(h, s, l);
     ctx.fillStyle = `rgb(${r},${g},${b})`;
     ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
     x += barWidth + 2;
   });
-
+  // call itself asap
   requestAnimationFrame(() => drawFrequency(frequencyData));
 }
 

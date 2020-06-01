@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Audio Analyzer</title>
 </head>
 
 <body>
+  <h1>Funky Audio visualiser</h1>
   <canvas></canvas>
   <script src="./sound.js"></script>
 
@@ -16,11 +17,16 @@
     html {
       margin: 0;
       background: black;
+      color: white;
+    }
+
+    h1 {
+      margin: 20px auto;
     }
 
     canvas {
       width: 100%;
-      height: 100%;
+      height: 90vh;
     }
 
     body {
